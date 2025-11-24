@@ -1,0 +1,7 @@
+{
+  "name": "UIABank",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
