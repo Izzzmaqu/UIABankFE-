@@ -1,0 +1,80 @@
+.transferencias-content {
+  --background: #15161a; 
+  color: #f5f5f5;
+}
+
+.header-summary {
+  padding: 16px 16px 8px;
+}
+
+.header-summary h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.header-summary p {
+  margin: 0;
+  font-size: 14px;
+  color: #9b9b9b;
+}
+
+.transferencia-item {
+  margin: 4px 12px;
+  border-radius: 14px;
+  --background: #16171a;
+  --inner-border-width: 0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.transferencia-item ion-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row-1,
+.row-2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cuentas {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e2e6f3;
+}
+
+.monto {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.fecha {
+  font-size: 12px;
+  color: #434447;
+}
+
+.empty-state {
+  margin-top: 80px;
+  text-align: center;
+  color: #7d7d7e;
+}
+
+.empty-state ion-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.empty-state h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+}
+

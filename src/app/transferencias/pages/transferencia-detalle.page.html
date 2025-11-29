@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalle de transferencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="transferencias-content">
+
+  <!-- Detalle cuando ya cargó la transferencia -->
+  <ng-container *ngIf="transferencia as t">
+
+    <!-- Encabezado con estado -->
+    <div class="detalle-header">
+      <h2>Transferencia #{{ t.id }}</h2>
+
+      <ion-badge [color]="getEstadoColor(t.estado)" class="estado-badge">
+        {{ getEstadoTexto(t.estado) }}
+      </ion-badge>
+    </div>
+
+    <!-- Card principal -->
+    <ion-card class="detalle-card">
+      <ion-card-header>
+        <ion-card-title class="monto">
+          {{ t.monto | currency:t.moneda:'symbol':'1.2-2' }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ t.moneda }}
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="row">
+          <span class="label">Cuenta origen</span>
+          <span class="value">{{ t.cuentaOrigen }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Cuenta destino</span>
+          <span class="value">{{ t.cuentaDestino }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Fecha programada / ejecución</span>
+          <span class="value">
+            {{ t.fechaProgramada ? (t.fechaProgramada | date:'dd/MM/yyyy HH:mm') : 'No aplica' }}
+          </span>
+        </div>
+
+        <div class="row">
+          <span class="label">Estado</span>
+          <span class="value">
+            {{ getEstadoTexto(t.estado) }}
+          </span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Botones de acción  -->
+    <div class="buttons">
+
+      <ion-button
+        class="primary-btn"
+        (click)="onEjecutar()"
+        *ngIf="puedeEjecutar()"
+        [disabled]="ejecutando">
+        <ion-spinner *ngIf="ejecutando" name="lines-small"></ion-spinner>
+        <span *ngIf="!ejecutando">Ejecutar ahora</span>
+      </ion-button>
+
+      <!-- Botón Volver -->
+      <ion-button
+        class="secondary-btn"
+        fill="outline"
+        color="light"
+        (click)="volver()">
+        Volver
+      </ion-button>
+    </div>
+
+  </ng-container>
+
+  <!-- Estado de carga mientras no hay transferencia y está cargando -->
+  <ng-container *ngIf="!transferencia && cargando">
+    <div class="loading-state">
+      <ion-spinner name="lines"></ion-spinner>
+      <p>Cargando detalle de la transferencia...</p>
+    </div>
+  </ng-container>
+
+</ion-content>
