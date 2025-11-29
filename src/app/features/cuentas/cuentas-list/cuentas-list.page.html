@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cuentas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="cargar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ng-container *ngIf="!cargando; else loading">
+    <ion-list *ngIf="cuentas.length; else empty">
+      <ion-item *ngFor="let c of cuentas">
+        <ion-label>
+          <h2>{{ c.numero }}</h2>
+          <p>Saldo: {{ c.saldo }}</p>
+          <p>Tipo: {{ c.tipo }} · Moneda: {{ c.moneda }} · Estado: {{ c.estado }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="ion-padding ion-text-center">
+      <ion-spinner></ion-spinner>
+      <p>Cargando cuentas...</p>
+    </div>
+  </ng-template>
+
+  <ng-template #empty>
+    <div class="ion-text-center ion-padding">
+      <p>No hay cuentas para mostrar.</p>
+    </div>
+  </ng-template>
+</ion-content>
