@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/lista-clientes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registrar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nuevo Usuario</ion-card-title>
+      <ion-card-subtitle>Complete la información del usuario</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form (ngSubmit)="onRegistrar()">
+        <ion-item>
+          <ion-label position="floating">Email *</ion-label>
+          <ion-input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            required
+            placeholder="usuario@ejemplo.com"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Contraseña *</ion-label>
+          <ion-input
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+            placeholder="Mínimo 8 caracteres"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Rol *</ion-label>
+          <ion-select [(ngModel)]="rol" name="rol" interface="popover">
+            <ion-select-option value="Administrador">Administrador</ion-select-option>
+            <ion-select-option value="Gestor">Gestor</ion-select-option>
+            <ion-select-option value="Cliente">Cliente</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="rol === 'Cliente'">
+          <ion-label>Cliente *</ion-label>
+          <ion-select [(ngModel)]="clienteId" name="clienteId" interface="popover">
+            <ion-select-option *ngFor="let cliente of clientes" [value]="cliente.id">
+              {{ cliente.nombreCompleto }} ({{ cliente.identificacion }})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="ion-margin-top">
+          Registrar Usuario
+        </ion-button>
+
+        <ion-button expand="block" fill="outline" (click)="volver()" class="ion-margin-top">
+          Cancelar
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
