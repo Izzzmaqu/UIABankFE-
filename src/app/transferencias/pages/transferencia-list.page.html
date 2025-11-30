@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Transferencias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="transferencias-content">
+
+  <div class="header-summary">
+    <h2>Últimos movimientos</h2>
+  </div>
+
+  <!-- Lista de transferencias o estado vacío -->
+  <ng-container *ngIf="transferencias && transferencias.length; else emptyState">
+    <ion-list lines="none">
+      <ion-item-sliding *ngFor="let t of transferencias">
+        <ion-item
+          button
+          [routerLink]="['/transferencias', t.id]"
+          class="transferencia-item"
+        >
+          <ion-label>
+            <div class="row-1">
+              <span class="cuentas">
+                {{ t.cuentaOrigen }} → {{ t.cuentaDestino }}
+              </span>
+
+              <span class="monto">
+                {{ t.monto | currency:t.moneda:'symbol':'1.2-2' }}
+              </span>
+            </div>
+
+            <div class="row-2">
+              <span class="fecha">
+                {{ t.fechaProgramada ? (t.fechaProgramada | date:'short') : 'Sin fecha' }}
+              </span>
+
+              <ion-badge [color]="getEstadoColor(t.estado)">
+                {{ getEstadoTexto(t.estado) }}
+              </ion-badge>
+            </div>
+          </ion-label>
+
+          <ion-icon
+            name="chevron-forward-outline"
+            slot="end"
+          ></ion-icon>
+        </ion-item>
+
+        <!-- Opciones de deslizar a la derecha (cancelar programada) -->
+        <ion-item-options side="end" *ngIf="esCancelable(t)">
+          <ion-item-option color="danger" (click)="onCancelarProgramada(t)">
+            Cancelar
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ng-container>
+
+  <!-- Estado vacío -->
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <ion-icon name="card-outline"></ion-icon>
+      <h3>Sin transferencias aún</h3>
+      <p>Cuando realices una transferencia, aparecerá aquí.</p>
+    </div>
+  </ng-template>
+
+  <!-- FAB para nuevas transferencias -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <!-- Botón principal (el +) -->
+    <ion-fab-button>
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+
+    <!-- Menú que se despliega hacia arriba -->
+    <ion-fab-list side="top">
+      <!-- Opción 1: transferencia inmediata -->
+      <ion-fab-button color="primary" routerLink="/transferencias/nueva">
+        <ion-icon name="swap-horizontal-outline"></ion-icon>
+      </ion-fab-button>
+
+      <!-- Opción 2: transferencia programada -->
+      <ion-fab-button color="secondary" routerLink="/transferencias/programar">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Transferencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="form-content">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-header">
+      <h2>Nueva transferencia</h2>
+      <p>Completae la información</p>
+    </div>
+
+    <ion-list lines="none" class="form-card">
+      <!-- Cuenta origen -->
+      <ion-item class="form-item" [class.invalid]="isInvalid('cuentaOrigen')">
+        <ion-label position="stacked">Cuenta origen</ion-label>
+        <ion-input
+          type="text"
+          formControlName="cuentaOrigen"
+          placeholder="000-000000-0"
+        ></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="isInvalid('cuentaOrigen')">
+        La cuenta origen es obligatoria.
+      </div>
+
+      <!-- Cuenta destino -->
+      <ion-item class="form-item" [class.invalid]="isInvalid('cuentaDestino')">
+        <ion-label position="stacked">Cuenta destino</ion-label>
+        <ion-input
+          type="text"
+          formControlName="cuentaDestino"
+          placeholder="000-000000-0"
+        ></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="isInvalid('cuentaDestino')">
+        La cuenta destino es obligatoria.
+      </div>
+
+      <!-- Monto -->
+      <ion-item class="form-item" [class.invalid]="isInvalid('monto')">
+        <ion-label position="stacked">Monto</ion-label>
+        <ion-input
+          type="number"
+          formControlName="monto"
+          placeholder="0.00"
+        ></ion-input>
+      </ion-item>
+      <div class="error" *ngIf="isInvalid('monto')">
+        Ingresa un monto válido mayor a 0.
+      </div>
+
+      <!-- Moneda -->
+      <ion-item class="form-item">
+        <ion-label position="stacked">Moneda</ion-label>
+        <ion-select formControlName="moneda" interface="popover">
+          <ion-select-option value="CRC">Colones (CRC)</ion-select-option>
+          <ion-select-option value="USD">Dólares (USD)</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      
+
+    <div class="form-actions">
+      <ion-button
+        type="submit"
+        expand="block"
+        [disabled]="cargando"
+      >
+        <ion-spinner *ngIf="cargando" name="lines-small"></ion-spinner>
+        <span *ngIf="!cargando">Confirmar transferencia</span>
+      </ion-button>
+
+      <ion-button
+        color="medium"
+        expand="block"
+        fill="clear"
+        (click)="volver()"
+      >
+        Volver
+      </ion-button>
+    </div>
+

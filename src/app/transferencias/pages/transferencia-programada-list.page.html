@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Transferencias programadas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="transferencias-content">
+
+  <div class="header-summary">
+    <h2>Mis transferencias programadas</h2>
+  </div>
+
+  <ng-container *ngIf="transferenciasProgramadas && transferenciasProgramadas.length; else emptyState">
+    <ion-list lines="none">
+      <ion-item-sliding *ngFor="let t of transferenciasProgramadas">
+        <ion-item class="transferencia-item">
+          <ion-label>
+            <div class="row-1">
+              <span class="cuentas">
+                {{ t.cuentaOrigen }} → {{ t.cuentaDestino }}
+              </span>
+              <span class="monto">
+                {{ t.monto | currency:t.moneda:'symbol':'1.2-2' }}
+              </span>
+            </div>
+
+            <div class="row-2">
+              <span class="fecha">
+                {{ t.fechaProgramada | date:'dd/MM/yyyy HH:mm' }}
+              </span>
+
+              <ion-badge [color]="getEstadoColor(t.estado)">
+                {{ getEstadoTexto(t.estado) }}
+              </ion-badge>
+            </div>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option
+            color="danger"
+            (click)="onCancelarProgramada(t)"
+            [disabled]="!esCancelable(t)">
+            Cancelar
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <h3>No tienes transferencias programadas</h3>
+
+    </div>
+  </ng-template>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/transferencias/programar">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
