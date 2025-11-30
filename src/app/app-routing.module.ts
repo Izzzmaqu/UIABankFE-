@@ -8,10 +8,14 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
+
+  // --- Auth ---
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
+
+  // --- Tu módulo (Login / Clientes) ---
   {
     path: 'registro-usuario',
     loadChildren: () => import('./registro-usuario/registro-usuario.module').then(m => m.RegistroUsuarioPageModule),
@@ -32,16 +36,35 @@ const routes: Routes = [
     loadChildren: () => import('./detalle-cliente/detalle-cliente.module').then(m => m.DetalleClientePageModule),
     canActivate: [AuthGuard]
   },
+
+  // --- Rutas que ya estaban en main (Transferencias / etc.) ---
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-  }
-];
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'transferencias',
+    loadChildren: () => import('./transferencias/module/transferencias.module').then(m => m.TransferenciasModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'cuentas-list',
+    loadChildren: () => import('./features/cuentas/cuentas-list/cuentas-list.module').then(m => m.CuentasListPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'beneficiarios-list',
+    loadChildren: () => import('./features/beneficiarios/beneficiarios-list/beneficiarios-list.module').then(m => m.BeneficiariosListPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'beneficiarios-form',
+    loadChildren: () => import('./features/beneficiarios/beneficiarios-form/beneficiarios-form.module').then(m => m.BeneficiariosFormPageModule),
+    canActivate: [AuthGuard]
+  },
 
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
+  // Siempre al final
+  {
+    path: '**',
+    redirectT

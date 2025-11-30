@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nuevo beneficiario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="guardar()" #form="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Alias</ion-label>
+        <ion-input
+          [(ngModel)]="modelo.alias"
+          name="alias"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Banco</ion-label>
+        <ion-input
+          [(ngModel)]="modelo.banco"
+          name="banco"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Número de cuenta</ion-label>
+        <ion-input
+          [(ngModel)]="modelo.numeroCuenta"
+          name="numeroCuenta"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Moneda</ion-label>
+        <ion-select
+          [(ngModel)]="modelo.moneda"
+          name="moneda"
+          interface="popover"
+          required
+        >
+          <!-- Valores coinciden con enum Moneda del backend (1 = CRC, 2 = USD) -->
+          <ion-select-option [value]="1">Colones (CRC)</ion-select-option>
+          <ion-select-option [value]="2">Dólares (USD)</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">País</ion-label>
+        <ion-input
+          [(ngModel)]="modelo.pais"
+          name="pais"
+          required
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      class="ion-margin-top"
+      [disabled]="form.invalid"
+    >
+      Guardar
+    </ion-button>
+
+    <ion-button
+      expand="block"
+      fill="clear"
+      color="medium"
+      type="button"
+      (click)="cancelar()"
+    >
+      Cancelar
+    </ion-button>
+  </form>
+</ion-content>

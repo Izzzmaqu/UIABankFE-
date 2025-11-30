@@ -1,0 +1,133 @@
+.transferencias-content {
+  --background: #050816;
+  color: #f9fafb;
+}
+
+/* Toolbar/header*/
+ion-header,
+ion-toolbar {
+  --background: #050816;
+  --color: #f9fafb;
+  --border-color: #111827;
+}
+
+/* Encabezado del detalle */
+.detalle-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    color: #e5e7eb;
+  }
+
+  .estado-badge {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    text-transform: none;
+  }
+}
+
+/* Card principal */
+.detalle-card {
+  margin: 12px 16px 8px;
+  background: #0b1120;        
+  color: #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+
+  ion-card-header {
+    padding-bottom: 4px;
+  }
+
+  .monto {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #f9fafb;
+  }
+
+  ion-card-subtitle {
+    color: #9ca3af;
+  }
+}
+
+/* Filas de info */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+
+  .label {
+    font-size: 0.8rem;
+    color: #9ca3af;
+  }
+
+  .value {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #e5e7eb;
+    text-align: right;
+    margin-left: 12px;
+    word-break: break-all;
+  }
+}
+
+/* Contenedor de botones */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px;
+}
+
+/* Botones más cortos*/
+.buttons ion-button {
+  flex: 0 0 auto;
+  min-width: 130px;
+}
+
+/* Botón principal */
+.primary-btn {
+  --background: #1d4ed8;
+  --background-hover: #1e40af;
+  --background-activated: #1e40af;
+  --color: #f9fafb;
+  --border-radius: 999px;
+  --box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+
+/* Botón secundario */
+.secondary-btn {
+  --border-radius: 999px;
+  --border-color: #4b5563;
+  --color: #e5e7eb;
+}
+
+/* Estado de carga */
+.loading-state {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #e5e7eb;
+
+  ion-spinner {
+    width: 32px;
+    height: 32px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #9ca3af;
+  }
+}

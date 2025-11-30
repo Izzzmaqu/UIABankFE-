@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Programar transferencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="transferencias-content">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <ion-list lines="none">
+
+      <ion-item [class.invalid]="isInvalid('cuentaOrigen')">
+        <ion-label position="stacked">Cuenta origen</ion-label>
+        <ion-input
+          formControlName="cuentaOrigen"
+          type="text"
+          autocomplete="off">
+        </ion-input>
+      </ion-item>
+      <div class="error" *ngIf="isInvalid('cuentaOrigen')">
+        La cuenta origen es obligatoria.
+      </div>
+
+      <ion-item [class.invalid]="isInvalid('cuentaDestino')">
+        <ion-label position="stacked">Cuenta destino</ion-label>
+        <ion-input
+          formControlName="cuentaDestino"
+          type="text"
+          autocomplete="off">
+        </ion-input>
+      </ion-item>
+      <div class="error" *ngIf="isInvalid('cuentaDestino')">
+        La cuenta destino es obligatoria.
+      </div>
+
+      <ion-item [class.invalid]="isInvalid('monto')">
+        <ion-label position="stacked">Monto</ion-label>
+        <ion-input
+          formControlName="monto"
+          type="number"
+          inputmode="decimal">
+        </ion-input>
+      </ion-item>
+      <div class="error" *ngIf="isInvalid('monto')">
+        El monto es obligatorio y debe ser mayor a 0.
+      </div>
+
+      <ion-item [class.invalid]="isInvalid('moneda')">
+        <ion-label position="stacked">Moneda</ion-label>
+        <ion-select formControlName="moneda">
+          <ion-select-option value="CRC">Colones (CRC)</ion-select-option>
+          <ion-select-option value="USD">Dólares (USD)</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="error" *ngIf="isInvalid('moneda')">
+        La moneda es obligatoria.
+      </div>
+
+      <!-- Fecha programada con acordeón -->
+      <ion-item
+        class="form-item"
+        [class.invalid]="isInvalid('fechaProgramada')"
+        (click)="toggleFecha()">
+        <ion-label position="stacked">Fecha programada</ion-label>
+        <div class="fecha-resumen">
+          <span *ngIf="form.get('fechaProgramada')?.value; else sinFechaProg">
+            {{ form.get('fechaProgramada')?.value | date:'dd/MM/yyyy' }}
+          </span>
+          <ng-template #sinFechaProg>
+            <span class="placeholder-fecha">Seleccione una fecha</span>
+          </ng-template>
+        </div>
+      </ion-item>
+
+      <div class="error"
+           *ngIf="form.get('fechaProgramada')?.hasError('required')
+           && (submitAttempted || form.get('fechaProgramada')?.touched)">
+        La fecha programada es obligatoria.
+      </div>
+
+      <div class="error"
+           *ngIf="form.get('fechaProgramada')?.hasError('fechaPasada')
+           && (submitAttempted || form.get('fechaProgramada')?.touched)">
+        La fecha programada no puede ser en el pasado.
+      </div>
+
+      <div class="error"
+           *ngIf="form.get('fechaProgramada')?.hasError('maxDias')
+           && (submitAttempted || form.get('fechaProgramada')?.touched)">
+        La fecha programada no puede ser mayor a 90 días desde hoy.
+      </div>
+
+      <div *ngIf="mostrarFecha">
+        <ion-datetime
+          presentation="date"
+          [min]="minFechaProgramada"
+          [max]="maxFechaProgramada"
+          (ionChange)="onFechaChange($event)">
+        </ion-datetime>
+      </div>
+
+    </ion-list>
+
+    <div class="buttons">
+      <ion-button
+        expand="block"
+        type="submit"
+        [disabled]="form.invalid || cargando">
+        <ion-spinner *ngIf="cargando" name="lines-small"></ion-spinner>
+        <span *ngIf="!cargando">Programar transferencia</span>
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        fill="clear"
+        color="medium"
+        type="button"
+        (click)="volver()">
+        Volver
+      </ion-button>
+    </div>
+
+  </form>
+
+</ion-content>
