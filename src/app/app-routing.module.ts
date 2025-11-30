@@ -1,11 +1,10 @@
-
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'transferencias',   
+    redirectTo: 'transferencias',
     pathMatch: 'full'
   },
   {
@@ -21,11 +20,28 @@ const routes: Routes = [
     // canActivate: [AuthGuard]
   },
   {
+    path: 'cuentas-list',
+    loadChildren: () =>
+      import('./features/cuentas/cuentas-list/cuentas-list.module')
+        .then(m => m.CuentasListPageModule)
+  },
+  {
+    path: 'beneficiarios-list',
+    loadChildren: () =>
+      import('./features/beneficiarios/beneficiarios-list/beneficiarios-list.module')
+        .then(m => m.BeneficiariosListPageModule)
+  },
+  {
+    path: 'beneficiarios-form',
+    loadChildren: () =>
+      import('./features/beneficiarios/beneficiarios-form/beneficiarios-form.module')
+        .then(m => m.BeneficiariosFormPageModule)
+  },
+  {
     path: '**',
-    redirectTo: 'transferencias'    
+    redirectTo: 'transferencias'
   }
 ];
-
 
 @NgModule({
   imports: [
