@@ -1,0 +1,43 @@
+:host {
+  ion-content {
+    --padding-top: 12px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+  }
+}
+
+/* Formulario */
+form {
+  ion-list {
+    background: transparent;
+  }
+
+  ion-item {
+    --background: var(--ion-item-background, #1e1e1e);
+    --border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  ion-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  ion-input,
+  ion-select {
+    font-size: 0.95rem;
+  }
+
+  ion-button {
+    margin-top: 10px;
+  }
+
+  ion-button[fill='clear'] {
+    margin-top: 4px;
+  }
+}
+
+/* Pequeño espacio inferior */
+ion-content {
+  --padding-bottom: 20px;
+}

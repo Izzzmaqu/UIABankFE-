@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Beneficiarios</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="nuevo()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Nuevo
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Filtros -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Filtros</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Alias</ion-label>
+        <ion-input [(ngModel)]="aliasFiltro"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Banco</ion-label>
+        <ion-input [(ngModel)]="bancoFiltro"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">País</ion-label>
+        <ion-input [(ngModel)]="paisFiltro"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="ion-margin-top" (click)="cargar()">
+        Aplicar filtros
+      </ion-button>
+      <ion-button expand="block" fill="clear" (click)="limpiarFiltros()">
+        Limpiar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista -->
+  <ion-list *ngIf="beneficiarios.length; else noData">
+    <ion-item *ngFor="let b of beneficiarios">
+      <ion-label>
+        <h2>{{ b.alias }} ({{ b.banco }})</h2>
+        <p>{{ b.numeroCuenta }} · {{ b.moneda }} · {{ b.pais }}</p>
+        <p>Estado: {{ b.estado }}</p>
+      </ion-label>
+
+      <!-- 0 = Inactivo (EstadoBeneficiario.Inactivo) -->
+      <ion-button
+        slot="end"
+        size="small"
+        color="success"
+        *ngIf="b.estado === 0"
+        (click)="confirmar(b)"
+      >
+        Confirmar
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noData>
+    <div class="ion-text-center ion-padding">
+      <p>No hay beneficiarios registrados.</p>
+    </div>
+  </ng-template>
+</ion-content>

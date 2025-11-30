@@ -1,0 +1,67 @@
+:host {
+  ion-content {
+    --padding-top: 8px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+}
+
+/* Tarjeta de filtros */
+ion-card {
+  margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+ion-card-title {
+  font-size: 1rem;
+}
+
+/* Inputs de filtros */
+ion-item {
+  --background: transparent;
+  --padding-start: 0;
+}
+
+/* Botones de filtros */
+ion-card ion-button {
+  margin-top: 6px;
+}
+
+/* Lista de beneficiarios */
+ion-list {
+  margin-top: 4px;
+}
+
+ion-item[button] {
+  cursor: pointer;
+}
+
+ion-item {
+  --background: var(--ion-item-background, #1e1e1e);
+  --border-radius: 10px;
+  --padding-start: 12px;
+  --inner-padding-end: 8px;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+ion-item h2 {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+ion-item p {
+  font-size: 0.9rem;
+  margin: 2px 0;
+}
+
+/* Botón Confirmar */
+ion-item ion-button {
+  margin-left: 8px;
+}
+
+/* Texto cuando no hay datos */
+.ion-text-center p {
+  color: var(--ion-color-medium);
+}
