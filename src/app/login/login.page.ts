@@ -7,8 +7,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: false,  // ← ELIMINAR ESTA LÍNEA
-
+  standalone: false,
 })
 export class LoginPage {
   email: string = '';
@@ -23,7 +22,7 @@ export class LoginPage {
 
   async onLogin() {
     if (!this.email || !this.password) {
-      await this.mostrarAlerta('Error', 'Por favor ingrese email y contraseña');
+      await this.mostrarAlerta('Error', 'Complete todos los campos');
       return;
     }
 
@@ -35,17 +34,17 @@ export class LoginPage {
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: async (response) => {
         await loading.dismiss();
-        if (response.exitoso && response.token) {
+        
+        if (response.token) {
           // Login exitoso
-          await this.mostrarAlerta('Éxito', response.mensaje);
-          this.router.navigate(['/lista-clientes']);
+          this.router.navigate(['/lista-clientes']); // ← Redirigir aquí
         } else {
-          await this.mostrarAlerta('Error', response.mensaje);
+          await this.mostrarAlerta('Error', 'No se recibió token');
         }
       },
       error: async (error) => {
         await loading.dismiss();
-        const mensaje = error.error?.mensaje || 'Error al iniciar sesión';
+        const mensaje = error.error?.mensaje || 'Credenciales incorrectas';
         await this.mostrarAlerta('Error', mensaje);
       }
     });

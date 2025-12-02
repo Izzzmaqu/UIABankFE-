@@ -19,6 +19,7 @@
   ></ion-searchbar>
 
   <!-- Botones de acción -->
+  <!-- Botones de acción -->
   <div class="botones-accion">
     <ion-button expand="block" (click)="nuevoCliente()">
       <ion-icon name="person-add-outline" slot="start"></ion-icon>
@@ -29,6 +30,42 @@
       <ion-icon name="person-circle-outline" slot="start"></ion-icon>
       Registrar Usuario
     </ion-button>
+
+    <!-- NUEVO: Módulo E - Pagos de Servicios -->
+    <ion-card class="menu-card">
+      <ion-card-header>
+        <ion-card-title>Pagos de Servicios</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button
+          expand="block"
+          color="tertiary"
+          (click)="gestionarProveedores()"
+        >
+          <ion-icon name="business-outline" slot="start"></ion-icon>
+          Gestionar Proveedores
+        </ion-button>
+
+        <ion-button expand="block" color="success" (click)="realizarPago()">
+          <ion-icon name="cash-outline" slot="start"></ion-icon>
+          Pagar Servicio
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          color="warning"
+          (click)="verPagosProgramados()"
+        >
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          Pagos Programados
+        </ion-button>
+
+        <ion-button expand="block" color="medium" (click)="verHistorial()">
+          <ion-icon name="receipt-outline" slot="start"></ion-icon>
+          Historial de Pagos
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
   </div>
 
   <!-- Lista de clientes -->
@@ -49,7 +86,12 @@
         <ion-label>{{ cliente.telefono }}</ion-label>
       </ion-item>
 
-      <ion-button expand="block" fill="outline" (click)="verDetalle(cliente)" class="ion-margin-top">
+      <ion-button
+        expand="block"
+        fill="outline"
+        (click)="verDetalle(cliente)"
+        class="ion-margin-top"
+      >
         Ver Detalles
       </ion-button>
     </ion-card-content>

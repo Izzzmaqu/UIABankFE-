@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/lista-clientes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestión de Proveedores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Botón para nuevo proveedor -->
+  <ion-button *ngIf="!mostrarFormulario" expand="block" (click)="nuevoProveedor()">
+    <ion-icon name="add-outline" slot="start"></ion-icon>
+    Nuevo Proveedor
+  </ion-button>
+
+  <!-- Formulario de creación/edición -->
+  <ion-card *ngIf="mostrarFormulario">
+    <ion-card-header>
+      <ion-card-title>{{ esEdicion ? 'Editar' : 'Nuevo' }} Proveedor</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form (ngSubmit)="guardar()">
+        <ion-item>
+          <ion-label position="floating">Nombre *</ion-label>
+          <ion-input [(ngModel)]="proveedor.nombre" name="nombre" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Tipo de Servicio *</ion-label>
+          <ion-input [(ngModel)]="proveedor.tipoServicio" name="tipoServicio" required placeholder="Ej: Electricidad, Agua, Internet"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Formato de Contrato *</ion-label>
+          <ion-input [(ngModel)]="proveedor.formatoContrato" name="formatoContrato" required placeholder="Ej: Numérico, Alfanumérico"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Longitud Mínima *</ion-label>
+          <ion-input type="number" [(ngModel)]="proveedor.longitudMinima" name="longitudMinima" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Longitud Máxima *</ion-label>
+          <ion-input type="number" [(ngModel)]="proveedor.longitudMaxima" name="longitudMaxima" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Activo</ion-label>
+          <ion-toggle [(ngModel)]="proveedor.activo" name="activo"></ion-toggle>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="ion-margin-top">
+          {{ esEdicion ? 'Actualizar' : 'Crear' }} Proveedor
+        </ion-button>
+
+        <ion-button expand="block" fill="outline" (click)="cancelar()" class="ion-margin-top">
+          Cancelar
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista de proveedores -->
+  <ion-card *ngFor="let prov of proveedores" [class.inactive]="!prov.activo">
+    <ion-card-header>
+      <ion-card-title>{{ prov.nombre }}</ion-card-title>
+      <ion-card-subtitle>{{ prov.tipoServicio }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><strong>Formato:</strong> {{ prov.formatoContrato }}</p>
+      <p><strong>Longitud:</strong> {{ prov.longitudMinima }} - {{ prov.longitudMaxima }} dígitos</p>
+      <p><strong>Estado:</strong> {{ prov.activo ? 'Activo' : 'Inactivo' }}</p>
+
+      <ion-button fill="outline" (click)="editarProveedor(prov)">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        Editar
+      </ion-button>
+
+      <ion-button fill="outline" color="danger" (click)="eliminarProveedor(prov)">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Eliminar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mensaje cuando no hay proveedores -->
+  <div *ngIf="proveedores.length === 0 && !mostrarFormulario" class="empty-state">
+    <ion-icon name="business-outline" size="large"></ion-icon>
+    <p>No hay proveedores registrados</p>
+  </div>
+</ion-content>

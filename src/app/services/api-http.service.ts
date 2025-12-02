@@ -3,30 +3,25 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
-type HttpOptions = {
-  headers?: HttpHeaders | { [header: string]: string | string[] };
-  params?: HttpParams | { [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean> };
-};
-
 @Injectable({ providedIn: 'root' })
 export class ApiHttpService {
   private baseUrl = environment.apiBaseUrl.replace(/\/$/, '');
 
   constructor(private http: HttpClient) {}
 
-  get<T>(url: string, options?: HttpOptions): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/${url}`, options);
+  get<T>(url: string, options?: any): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}/${url}`, options) as any;
   }
 
-  post<T>(url: string, body: any, options?: HttpOptions): Observable<T> {
-    return this.http.post<T>(`${this.baseUrl}/${url}`, body, options);
+  post<T>(url: string, body: any, options?: any): Observable<T> {
+    return this.http.post<T>(`${this.baseUrl}/${url}`, body, options) as any;
   }
 
-  put<T>(url: string, body: any, options?: HttpOptions): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/${url}`, body, options);
+  put<T>(url: string, body: any, options?: any): Observable<T> {
+    return this.http.put<T>(`${this.baseUrl}/${url}`, body, options) as any;
   }
 
-  delete<T>(url: string, options?: HttpOptions): Observable<T> {
-    return this.http.delete<T>(`${this.baseUrl}/${url}`, options);
+  delete<T>(url: string, options?: any): Observable<T> {
+    return this.http.delete<T>(`${this.baseUrl}/${url}`, options) as any;
   }
 }

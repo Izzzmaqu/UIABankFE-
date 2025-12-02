@@ -8,8 +8,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
   selector: 'app-lista-clientes',
   templateUrl: './lista-clientes.page.html',
   styleUrls: ['./lista-clientes.page.scss'],
-  standalone: false,  // ← ELIMINAR ESTA LÍNEA
-
+  standalone: false, // ← ELIMINAR ESTA LÍNEA
 })
 export class ListaClientesPage implements OnInit {
   clientes: Cliente[] = [];
@@ -47,16 +46,17 @@ export class ListaClientesPage implements OnInit {
       error: async (error) => {
         await loading.dismiss();
         await this.mostrarAlerta('Error', 'No se pudieron cargar los clientes');
-      }
+      },
     });
   }
 
   filtrarClientes() {
     const term = this.searchTerm.toLowerCase();
-    this.clientesFiltrados = this.clientes.filter(cliente =>
-      cliente.nombreCompleto.toLowerCase().includes(term) ||
-      cliente.identificacion.toLowerCase().includes(term) ||
-      cliente.correo.toLowerCase().includes(term)
+    this.clientesFiltrados = this.clientes.filter(
+      (cliente) =>
+        cliente.nombreCompleto.toLowerCase().includes(term) ||
+        cliente.identificacion.toLowerCase().includes(term) ||
+        cliente.correo.toLowerCase().includes(term)
     );
   }
 
@@ -79,16 +79,16 @@ export class ListaClientesPage implements OnInit {
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
         },
         {
           text: 'Salir',
           handler: () => {
             this.authService.logout();
             this.router.navigate(['/login']);
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await alert.present();
   }
@@ -97,8 +97,24 @@ export class ListaClientesPage implements OnInit {
     const alert = await this.alertController.create({
       header,
       message,
-      buttons: ['OK']
+      buttons: ['OK'],
     });
     await alert.present();
+  }
+  // NUEVO: Módulo E - Pagos de Servicios
+  gestionarProveedores() {
+    this.router.navigate(['/gestion-proveedores']);
+  }
+
+  realizarPago() {
+    this.router.navigate(['/realizar-pago']);
+  }
+
+  verPagosProgramados() {
+    this.router.navigate(['/pagos-programados']);
+  }
+
+  verHistorial() {
+    this.router.navigate(['/historial-pagos']);
   }
 }

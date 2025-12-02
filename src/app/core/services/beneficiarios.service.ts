@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiHttpService } from './api-http.service';
+import { ApiHttpService } from '../../services/api-http.service';
 import {
   BeneficiarioDto,
   RegistrarBeneficiarioRequest,
